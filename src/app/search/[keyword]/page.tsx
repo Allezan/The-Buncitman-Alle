@@ -5,6 +5,7 @@ import Product from "@/components/Card/Product";
 import { getSearchQuery } from "@/lib/action/product";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import ShopCategorySL from "@/components/SkeletonLoad/ShopCategorySL";
 
 interface Product {
   id: string;
@@ -13,10 +14,12 @@ interface Product {
   imageUrl: string;
 }
 
-const Page = () => {
+const Page: React.FC = () => {
   const params = useParams<{ keyword: string }>();
   const decodedKeyword = decodeURIComponent(params.keyword);
   const [product, setProduct] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const data = async () => {
       const response = await getSearchQuery(decodedKeyword);
@@ -24,6 +27,12 @@ const Page = () => {
     };
     data();
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Header />
@@ -31,6 +40,9 @@ const Page = () => {
         <h2 className="text-Heading-2 font-bold">
           Hasil Pencarian Untuk {decodedKeyword}
         </h2>
+        {isLoading ? (
+          <ShopCategorySL />
+        ) : (
         <div className="grid grid-cols-4 gap-10 mx-10">
           {product.map((item) => (
             <Product
@@ -42,6 +54,7 @@ const Page = () => {
             />
           ))}
         </div>
+        )}
       </div>
     </>
   );

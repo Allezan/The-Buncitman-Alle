@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { deleteItem, getAllOrders } from "@/lib/action/orders";
 import Order from "@/components/Card/Order";
 import AddressContainer from "@/components/checkout/AddressContainer";
+import CheckoutSL from "@/components/SkeletonLoad/CheckoutSL";
 
 interface Order {
   id: string;
@@ -31,13 +32,14 @@ interface Order {
   };
 }
 
-const Page = () => {
+const Page: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const { toast } = useToast();
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedShipping, setSelectedShipping] = useState("Go Send");
   const [selectedPayment, setSelectedPayment] = useState("Transfer BCA");
+  const [isLoading, setIsLoading] = useState(true);
 
   const username = session?.user?.name;
 
@@ -92,7 +94,14 @@ const Page = () => {
     }
   };
 
-  return (
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
+
+  return isLoading ? (
+    <CheckoutSL />
+  ) : (
     <main className="flex flex-col my-10 px-4 sm:px-10">
       {/* Address Section */}
       <AddressContainer />
