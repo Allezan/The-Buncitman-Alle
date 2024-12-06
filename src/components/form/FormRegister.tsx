@@ -84,7 +84,7 @@ const FormRegister = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-1">
+        <div className="space-y-3 mb-3">
           <FormField
             control={form.control}
             name="name"
@@ -146,16 +146,18 @@ const FormRegister = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-3" type="submit">
+        <Button className="w-full mt-6" type="submit">
           Sign Up
         </Button>
       </form>
-      <p>
-        Already have an account?
-        <Link href={"/login"} className="text-blue-500 hover:underline">
-          Sign In
-        </Link>
-      </p>
+      <div className="space-y-5 mt-2 text-center">
+        <p>
+          Already have an account?
+          <Link href={"/login"} className="text-blue-500 hover:underline">
+            Sign In
+          </Link>
+        </p>
+      </div>
     </Form>
   );
 };

@@ -1,11 +1,15 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import Contact from "@/components/Card/Contact";
+import ContactSL from "@/components/SkeletonLoad/ContactSL";
 
-const contact = () => {
+const contact: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const arrayContact = [
     {
       id: 1,
@@ -26,7 +30,14 @@ const contact = () => {
       contact: "info@buncitmen.com",
     },
   ];
-  return (
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
+
+  return isLoading ? (
+    <ContactSL />
+  ) : (
     <>
       <section className="grid grid-cols-2 gap-5">
         <div className="flex flex-col justify-center p-10">
@@ -34,7 +45,7 @@ const contact = () => {
             Discover The Buncitmen: Your Destination for Premium Coffee
             Experiences
           </h1>
-          <p className="text-Heading-3 font-semibold">
+          <p className="text-Heading-3 mt-6 font-normal">
             At The Buncitmen, we are passionate about delivering the finest
             coffee products. Our carefully sourced coffee beans and expertly
             crafted coffee bottles ensure every sip is a delightful experience.

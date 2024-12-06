@@ -66,7 +66,7 @@ const FormLogin = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-2">
+        <div className="space-y-3 mb-3">
           <FormField
             control={form.control}
             name="email"
@@ -103,7 +103,7 @@ const FormLogin = () => {
           Sign In
         </Button>
       </form>
-      <div className="space-y-5">
+      <div className="space-y-5 text-center mt-2">
         <p>
           If you don&apos;t have an account, please&nbsp;
           <Link href={"/register"} className="text-blue-500 hover:underline">

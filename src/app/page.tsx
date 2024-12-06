@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Team from "@/components/Card/Team";
 import Testimonial from "@/components/Card/Testimonial";
 import { team } from "@/data/team";
